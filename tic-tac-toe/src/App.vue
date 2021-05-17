@@ -1,7 +1,13 @@
 <template>
   <div class="app">
     <div class="play-area">
-      <div v-for="(item, i) in board" :key="item" v-bind:id="`block_${i}`" class="block">
+      <div
+        v-for="(item, i) in board"
+        :key="i"
+        v-bind:id="`block_${i}`"
+        class="block"
+        v-on:click="blockClicked(i, item)"
+      >
         {{ item }}
       </div>
     </div>
@@ -13,10 +19,13 @@ export default {
   name: "app",
   data() {
     return {
-      board: [
-        "X", "O", "", "", "", "", "", "", "",
-      ],
+      board: ["", "", "", "", "", "", "", "", ""],
     };
+  },
+  methods: {
+    blockClicked(i) {
+      this.board.splice(i, 1, "x") 
+    },
   },
 };
 </script>
