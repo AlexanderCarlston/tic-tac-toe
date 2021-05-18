@@ -15,17 +15,27 @@
 </template>
 
 <script>
+import { io } from "socket.io-client";
+
 export default {
   name: "app",
   data() {
     return {
       board: ["", "", "", "", "", "", "", "", ""],
+      socket: null,
     };
   },
   methods: {
     blockClicked(i) {
-      this.board.splice(i, 1, "x") 
+      this.board.splice(i, 1, "x");
     },
+  },
+  created: function () {
+    if (this.socket === null) {
+      console.log('triggers')
+      this.socket = io("ws://localhost:3000");
+      this.socket.emit('createGame', {name: 'Player 1'})
+    }
   },
 };
 </script>
